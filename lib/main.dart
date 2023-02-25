@@ -85,6 +85,30 @@ class _MyHomePageState extends State<MyHomePage> {
     setState(() {});
   }
 
+  Future<void> getCPUUsage() async {
+    try {
+      final result = await platform.invokeMethod('getCPUUsage');
+      print(result);
+      print(result.runtimeType);
+      _nativeMessage = result.toString();
+    } on PlatformException catch (e) {
+      _nativeMessage = "Failed to get CPU Info: ${e.message}.";
+    }
+    setState(() {});
+  }
+
+  Future<void> getCPU2() async {
+    try {
+      final result = await platform.invokeMethod('getCPU2');
+      print(result);
+      print(result.runtimeType);
+      _nativeMessage = result.toString();
+    } on PlatformException catch (e) {
+      _nativeMessage = "Failed to get CPU Info: ${e.message}.";
+    }
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     return Material(
@@ -102,6 +126,14 @@ class _MyHomePageState extends State<MyHomePage> {
             ElevatedButton(
               onPressed: doNativeSuff,
               child: const Text('Do Native Stuff'),
+            ),
+            ElevatedButton(
+              onPressed: getCPUUsage,
+              child: const Text('Get CPU USAGE 1'),
+            ),
+            ElevatedButton(
+              onPressed: getCPU2,
+              child: const Text('Get CPU USAGE 2'),
             ),
             const Spacer(),
             Padding(
